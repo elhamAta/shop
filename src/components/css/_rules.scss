@@ -1,0 +1,187 @@
+@mixin txtOverflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@mixin flexCenterH {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+@mixin flexCenterV {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+@mixin flexCenter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+@mixin absCenter {
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+@mixin pseudo {
+  content: '';
+  position: absolute;
+}
+@mixin userSelect {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@mixin multiEllipsis ($maxHeight, $bgColor:#fff) {
+  overflow: hidden;
+  max-height: $maxHeight;
+  position: relative;
+  z-index: 0;
+  word-wrap: break-word;
+  &::before {
+    content: '...';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: $bgColor;
+    z-index: 1;
+  }
+  &::after {
+    @include pseudo;
+    width: 100%;
+    height: 100%;
+    background-color: $bgColor;
+    z-index: 2;
+  }
+}
+@mixin placeholderColor($color) {
+  &::placeholder {
+    color: $color;
+    opacity: 1;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+  &::-ms-input-placeholder {
+    color: $color;
+  }
+}
+@mixin colList($column: 1, $gapColumn: 0px, $gapRow: 0px) {
+  --column: #{$column};
+  --gap-column: #{$gapColumn};
+  --gap-row: #{$gapRow};
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 0 calc(var(--gap-column) / -2);
+  width: calc(100% + var(--gap-column));
+
+  > * {
+    width: calc((100% - (var(--column) * var(--gap-column))) / var(--column));
+    margin: 0 calc(var(--gap-column) / 2) var(--gap-row);
+  }
+}
+
+/*@include  transform (both);*/
+
+@mixin transform($position: "both"){
+  position:absolute;
+  @if $position == "y"{
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  @if $position == "x"{
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @if $position == "both"{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+}
+/* 
+  margin & padding item
+  demo margin :p-top (position(top, bottom, left, right))-10 (space(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100))
+  demo padding :p-top (position(top, bottom, left, right))-10 (space(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100))
+*/
+$spaceamounts: (0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100);
+$position: (top, bottom, left, right , all); 
+@each $space in $spaceamounts {
+  @each $side in $position {
+    @if $side == 'all' {
+      .m-#{$space} {
+        margin: #{$space}px;
+      }
+      .p-#{$space} {
+        padding: #{$space}px;
+      }
+      .m-right-left-#{$space} {
+        --null:0;
+        margin:var(--null) #{$space}px;
+      }
+      .p-right-left-#{$space} {
+        --null:0;
+        padding:var(--null) #{$space}px;
+      }
+      .m-top-bottom-#{$space} {
+        --null:0;
+        margin:#{$space}px var(--null);
+      }
+      .p-top-bottom-#{$space} {
+        --null:0;
+        padding:#{$space}px var(--null);
+      }
+    } @else {
+      .m-#{str-slice($side, 0, 1)}-#{$space} {
+        margin-#{$side}: #{$space}px;
+      }
+      .p-#{str-slice($side, 0, 1)}-#{$space} {
+        padding-#{$side}: #{$space}px;
+      }
+    }
+  }
+}
+/*image padding*/
+@mixin images($maximages:0px , $width:0 ,$height:0) {
+  --width: #{$width};
+  --height: #{$height};
+  --max-width-images: #{$maximages};
+  position: relative;
+  max-width: var(--max-width-images);
+  width: 100%;
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    padding-top: calc(100% * var(--height) / var(--width));
+  }
+  > img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+$white:#fff;
+$color:#e6007e;
+$color2:#282828;
+.trans{transition: all .4s ease;}

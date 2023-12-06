@@ -1,0 +1,28 @@
+﻿/*--------------------reset--------------------------*/
+article, aside, audio, canvas, command, datalist, details, embed, figcaption, figure,
+footer, header, hgroup, keygen, meter, nav, output, progress, section, source, video, a { display: block }
+* { 
+    background: none; list-style: none; outline: none; padding: 0; margin: 0; 
+    font-weight: normal; box-sizing: border-box; flex-wrap: wrap; border: none; color: inherit;
+    &::before,
+    &::after { box-sizing: border-box; flex-wrap: wrap; }
+}
+.swiper-wrapper { flex-wrap:nowrap;}
+a { text-decoration: none; transition: all ease 0.3s; }
+a, input[type=button], input[type=submit], button { cursor: pointer; }
+img { max-width: 100%; display:block; }
+.container{ width: 1200px; display: block; margin: 0 auto; }
+.clear { clear: both; height: 0px; line-height: 0px; overflow: hidden; }
+.clearfix:after { content: ''; display: block; height: 0; clear: both; }
+.hidden { display: none !important; }
+span{display: inline-block}
+.main {
+    display: block;
+    margin: 0 auto;
+    width: 96%;
+    max-width: 1200px;
+    -webkit-transition: .5s all;
+    transition: .5s all;
+  }
+
+
